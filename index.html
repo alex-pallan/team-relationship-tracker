@@ -84,7 +84,7 @@
                 </div>
               </button>
             </h2>
-            <div id="${collapseId}" class="accordion-collapse collapse" data-bs-parent="#accordion${teamIndex}">
+            <div id="${collapseId}" class="accordion-collapse collapse" data-bs-parent="#accordionInner${teamIndex}">
               <div class="accordion-body">
                 ${subteam.description}
               </div>
@@ -106,13 +106,19 @@
               <div class="card-body">
                 <h2 class="card-title fw-bold"><i class="bi bi-people-fill"></i> ${team.name}</h2>
                 ${createProgressBar(percentage)}
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion${teamIndex}" aria-expanded="false" aria-controls="accordion${teamIndex}">
-                  Sub items
-                </button>
-                <div id="accordion${teamIndex}" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    <div class="accordion" id="accordionInner${teamIndex}">
-                      ${accordionItems}
+                <div class="accordion" id="accordionExample${teamIndex}">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${teamIndex}" aria-expanded="false" aria-controls="collapse${teamIndex}">
+                        Sub items
+                      </button>
+                    </h2>
+                    <div id="collapse${teamIndex}" class="accordion-collapse collapse" data-bs-parent="#accordionExample${teamIndex}">
+                      <div class="accordion-body">
+                        <div class="accordion" id="accordionInner${teamIndex}">
+                          ${accordionItems}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
