@@ -1,0 +1,34 @@
+{
+  "teams": [
+    {
+      "name": "Group 1",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 1,
+          "description": "Here is an explanation of why the reputation for this group is the way it is, and how we can strive to improve it."
+        },
+        {
+          "name": "Sub-Group 2",
+          "relationship": 2,
+          "description": "Description for Sub-Group 2."
+        }
+      ]
+    },
+    {
+      "name": "Group 2",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 3,
+          "description": "Description for Sub-Group 1."
+        },
+        {
+          "name": "Sub-Group 2",
+          "relationship": 4,
+          "description": "Description for Sub-Group 2."
+        }
+      ]
+    }
+  ]
+}
