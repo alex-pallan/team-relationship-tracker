@@ -4,7 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Team Relationship Tracker</title>
-    <link rel="icon" type="image/x-icon" href="https://asset.brandfetch.io/idJdn3jjkg/idAT5HtvRy.png">
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://asset.brandfetch.io/idJdn3jjkg/idAT5HtvRy.png"
+    />
     <link
       href="bootstrap.min.css"
       rel="stylesheet"
@@ -15,10 +19,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="custom-style.css"
-    />
+    <link rel="stylesheet" href="custom-style.css" />
   </head>
   <body class="bg-white">
     <nav class="navbar bg-body-tertiary" data-bs-theme="dark">
@@ -31,14 +32,15 @@
             style="filter: brightness(0) invert(1)"
           />
         </a>
-        <span class="navbar-text"
-          >Team Relationships
-          Dashboard</span
-        >
+        <span class="navbar-text">Team Relationships Dashboard</span>
       </div>
     </nav>
     <div class="container pt-3" id="content"></div>
-    <span class="badge rounded-pill text-bg-secondary position-absolute bottom-0 start-50 translate-middle-x fs-4">Film & TV Production</span>
+    <span
+      class="badge rounded-pill text-bg-secondary position-absolute bottom-0 start-50 translate-middle-x fs-5 fw-normal mb-3 shadow"
+      style="opacity: 0.75"
+      >Film & TV Production</span
+    >
     <script
       src="bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -46,7 +48,7 @@
     ></script>
     <script>
       async function fetchTeams() {
-        const response = await fetch('data.json');
+        const response = await fetch("data.json");
         const data = await response.json();
         return data.teams;
       }
@@ -93,11 +95,18 @@
       }
 
       function createTeamCard(team, teamIndex) {
-        const totalRelationship = team.subteams.reduce((sum, subteam) => sum + subteam.relationship, 0);
+        const totalRelationship = team.subteams.reduce(
+          (sum, subteam) => sum + subteam.relationship,
+          0,
+        );
         const possibleRelationship = team.subteams.length * 4;
         const percentage = (totalRelationship / possibleRelationship) * 100;
 
-        const accordionItems = team.subteams.map((subteam, subteamIndex) => createAccordionItem(subteam, teamIndex, subteamIndex)).join('');
+        const accordionItems = team.subteams
+          .map((subteam, subteamIndex) =>
+            createAccordionItem(subteam, teamIndex, subteamIndex),
+          )
+          .join("");
 
         return `
           <div class="col">
@@ -129,8 +138,11 @@
 
       async function renderTeams() {
         const teams = await fetchTeams();
-        const content = document.getElementById('content');
-        content.innerHTML = '<div class="row row-cols-1 row-cols-md-2 g-4">' + teams.map((team, index) => createTeamCard(team, index)).join('') + '</div>';
+        const content = document.getElementById("content");
+        content.innerHTML =
+          '<div class="row row-cols-1 row-cols-md-2 g-4">' +
+          teams.map((team, index) => createTeamCard(team, index)).join("") +
+          "</div>";
       }
 
       renderTeams();
