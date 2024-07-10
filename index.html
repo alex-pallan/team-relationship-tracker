@@ -17,7 +17,6 @@
     />
     <style>
       .progress-bar {
-        background: linear-gradient(to right, red, yellow, green);
         background-size: 100% 100%;
         background-repeat: no-repeat;
       }
@@ -54,21 +53,13 @@
       }
 
       function getProgressBarColor(percentage) {
-        // Calculate the gradient stop points
-        let red = 255;
-        let green = 255;
-        let blue = 255;
-
         if (percentage <= 50) {
-          // Gradient from red to yellow
-          green = Math.floor(255 * (percentage / 50));
+          const green = Math.floor(255 * (percentage / 50));
+          return `rgb(255, ${green}, 0)`; // From red to yellow
         } else {
-          // Gradient from yellow to green
-          red = Math.floor(255 * (1 - (percentage - 50) / 50));
-          green = 255;
+          const red = Math.floor(255 * (1 - (percentage - 50) / 50));
+          return `rgb(${red}, 255, 0)`; // From yellow to green
         }
-
-        return `rgb(${red}, ${green}, ${blue})`;
       }
 
       function createProgressBar(percentage, height = 30) {
