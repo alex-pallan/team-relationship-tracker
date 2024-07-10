@@ -102,16 +102,42 @@
 
         return `
           <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h2 class="card-title fw-bold"><i class="bi bi-people-fill"></i> ${team.name}</h2>
-                ${createProgressBar(percentage)}
-                <div class="accordion" id="accordion${teamIndex}">
-                  ${accordionItems}
-                </div>
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title fw-bold">
+        <i class="bi bi-people-fill"></i> ${team.name}
+      </h2>
+      ${createProgressBar(percentage)}
+      <div class="accordion" id="subTeamContainer${teamIndex}">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseSubTeamContainer${teamIndex}"
+              aria-expanded="true"
+              aria-controls="collapseSubTeamContainer${teamIndex}"
+            >
+              Sub-Teams
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse show"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <div class="accordion" id="accordion${teamIndex}">
+                ${accordionItems}
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
         `;
       }
 
