@@ -6,22 +6,22 @@
         {
           "name": "Sub-Group 1",
           "relationship": 1,
-          "description": "Here is an explanation of why the reputation for this group is the way it is, and how we can strive to improve it."
+          "description": "This subgroup's relationship score is low due to recent communication breakdowns among team members. Improvements can be made by implementing regular team meetings and fostering an open communication culture."
         },
         {
           "name": "Sub-Group 2",
           "relationship": 2,
-          "description": "Description for Sub-Group 2."
+          "description": "Description for Sub-Group 2. The relationship score reflects moderate collaboration efforts, which can be enhanced by encouraging cross-functional projects and team-building activities."
         },
         {
           "name": "Sub-Group 3",
           "relationship": 1,
-          "description": "Description for Sub-Group 3."
+          "description": "Sub-Group 3's score is low due to a lack of clarity in roles and responsibilities. To improve, defining clear objectives and establishing accountability frameworks would be beneficial."
         },
         {
           "name": "Sub-Group 4",
           "relationship": 3,
-          "description": "Description for Sub-Group 4."
+          "description": "This subgroup has a good relationship score attributed to strong leadership and effective conflict resolution strategies. Sustaining this requires continued leadership development and periodic team evaluations."
         }
       ]
     },
@@ -31,27 +31,17 @@
         {
           "name": "Sub-Group 1",
           "relationship": 3,
-          "description": "Description for Sub-Group 1."
+          "description": "Description for Sub-Group 1. The high relationship score is due to effective cross-functional collaboration and a shared commitment to project success. Sustaining this requires maintaining clear communication channels and celebrating milestones."
         },
         {
           "name": "Sub-Group 2",
           "relationship": 4,
-          "description": "Description for Sub-Group 2."
+          "description": "Sub-Group 2 excels in teamwork and innovation, leading to an excellent relationship score. To sustain this, fostering a culture of creativity and investing in continuous learning opportunities would be beneficial."
         },
         {
           "name": "Sub-Group 3",
           "relationship": 2,
-          "description": "Description for Sub-Group 3."
-        },
-        {
-          "name": "Sub-Group 4",
-          "relationship": 1,
-          "description": "Description for Sub-Group 4."
-        },
-        {
-          "name": "Sub-Group 5",
-          "relationship": 4,
-          "description": "Description for Sub-Group 5."
+          "description": "The moderate score for Sub-Group 3 reflects occasional communication challenges. Improving this involves establishing regular feedback loops and enhancing cross-departmental collaborations."
         }
       ]
     },
@@ -61,27 +51,47 @@
         {
           "name": "Sub-Group 1",
           "relationship": 2,
-          "description": "Description for Sub-Group 1 in Group 3."
+          "description": "Description for Sub-Group 1 in Group 3. The score reflects ongoing efforts to improve inter-departmental communication and streamline workflow processes. Sustaining this involves regular performance assessments and adapting to industry trends."
         },
         {
           "name": "Sub-Group 2",
           "relationship": 3,
-          "description": "Description for Sub-Group 2 in Group 3."
+          "description": "Sub-Group 2's score is attributed to a collaborative approach and proactive problem-solving. To sustain this, fostering a culture of continuous improvement and investing in employee development is essential."
         },
         {
           "name": "Sub-Group 3",
           "relationship": 1,
-          "description": "Description for Sub-Group 3 in Group 3."
+          "description": "The low score for Sub-Group 3 is due to recent conflicts arising from differing work styles. To improve, promoting team cohesion through team-building activities and conflict resolution training would be beneficial."
         },
         {
           "name": "Sub-Group 4",
           "relationship": 4,
-          "description": "Description for Sub-Group 4 in Group 3."
+          "description": "Sub-Group 4 excels in cross-functional synergy and effective communication channels, resulting in a high relationship score. Sustaining this requires fostering a culture of mutual respect and leveraging diversity."
+        }
+      ]
+    },
+    {
+      "name": "Group 4",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 4,
+          "description": "Sub-Group 1's high relationship score is due to strong team cohesion and strategic alignment with organizational goals. To sustain this, fostering innovation and providing professional development opportunities are crucial."
         },
         {
-          "name": "Sub-Group 5",
-          "relationship": 3,
-          "description": "Description for Sub-Group 5 in Group 3."
+          "name": "Sub-Group 2",
+          "relationship": 2,
+          "description": "Sub-Group 2's moderate score reflects solid collaboration efforts but occasional communication gaps. Improving this involves enhancing project management practices and promoting knowledge sharing."
+        }
+      ]
+    },
+    {
+      "name": "Group 5",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 1,
+          "description": "Description for Sub-Group 1 in Group 5. The low relationship score is attributed to recent turnover and team restructuring. To improve, rebuilding trust and fostering a supportive work environment are essential."
         }
       ]
     }
