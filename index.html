@@ -46,27 +46,29 @@
         return data.teams;
       }
 
-      function createProgressBar(percentage) {
+      function createProgressBar(percentage, height = 30) {
         return `
-          <div class="progress mb-3" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: 30px">
+          <div class="progress mb-3" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: ${height}px">
             <div class="progress-bar" style="width: ${percentage}%"></div>
           </div>
         `;
       }
 
-      function createAccordionItem(subteam, index) {
+      function createAccordionItem(subteam, teamIndex, subteamIndex) {
         const percentage = (subteam.relationship / 4) * 100;
+        const collapseId = `collapse${teamIndex}-${subteamIndex}`;
+        const buttonId = `button${teamIndex}-${subteamIndex}`;
         return `
           <div class="accordion-item">
             <h2 class="accordion-header">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="true" aria-controls="${collapseId}">
                 <div class="w-75">
                   <h5>${subteam.name}</h5>
-                  ${createProgressBar(percentage)}
+                  ${createProgressBar(percentage, 10)}
                 </div>
               </button>
             </h2>
-            <div id="collapse${index}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div id="${collapseId}" class="accordion-collapse collapse show" data-bs-parent="#accordion${teamIndex}">
               <div class="accordion-body">
                 ${subteam.description}
               </div>
@@ -75,12 +77,12 @@
         `;
       }
 
-      function createTeamCard(team) {
+      function createTeamCard(team, teamIndex) {
         const totalRelationship = team.subteams.reduce((sum, subteam) => sum + subteam.relationship, 0);
         const possibleRelationship = team.subteams.length * 4;
         const percentage = (totalRelationship / possibleRelationship) * 100;
 
-        const accordionItems = team.subteams.map((subteam, index) => createAccordionItem(subteam, index)).join('');
+        const accordionItems = team.subteams.map((subteam, subteamIndex) => createAccordionItem(subteam, teamIndex, subteamIndex)).join('');
 
         return `
           <div class="col">
@@ -88,7 +90,7 @@
               <div class="card-body">
                 <h2 class="card-title fw-bold">${team.name}</h2>
                 ${createProgressBar(percentage)}
-                <div class="accordion" id="accordionExample">
+                <div class="accordion" id="accordion${teamIndex}">
                   ${accordionItems}
                 </div>
               </div>
@@ -100,7 +102,7 @@
       async function renderTeams() {
         const teams = await fetchTeams();
         const content = document.getElementById('content');
-        content.innerHTML = '<div class="row row-cols-1 row-cols-md-2 g-4">' + teams.map(createTeamCard).join('') + '</div>';
+        content.innerHTML = '<div class="row row-cols-1 row-cols-md-2 g-4">' + teams.map((team, index) => createTeamCard(team, index)).join('') + '</div>';
       }
 
       renderTeams();
