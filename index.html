@@ -1,146 +1,109 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Team Relationship Tracker</title>
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="https://asset.brandfetch.io/idJdn3jjkg/idAT5HtvRy.png"
-    />
-    <link
-      href="bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="custom-style.css" />
-  </head>
-  <body class="bg-white">
-    <nav class="navbar bg-body-tertiary" data-bs-theme="dark">
-      <div class="container-fluid mx-2">
-        <a class="navbar-brand" href="https://www.nbcuniversal.com/">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/e/ef/NBCUniversal_Logo.svg"
-            alt="NBCUniversal"
-            height="24"
-            style="filter: brightness(0) invert(1)"
-          />
-        </a>
-        <span class="navbar-text">Team Relationships Dashboard</span>
-      </div>
-    </nav>
-    <div class="container pt-3" id="content"></div>
-    <script
-      src="bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      async function fetchTeams() {
-        const response = await fetch("data.json");
-        const data = await response.json();
-        return data.teams;
-      }
-
-      function getProgressBarColor(percentage) {
-        if (percentage <= 50) {
-          const green = Math.floor(255 * (percentage / 50));
-          return `rgb(255, ${green}, 0)`; // From red to yellow
-        } else {
-          const red = Math.floor(255 * (1 - (percentage - 50) / 50));
-          return `rgb(${red}, 255, 0)`; // From yellow to green
+{
+  "teams": [
+    {
+      "name": "Group 1",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 1,
+          "description": "Sub-Group 1's relationship score is low due to recent communication breakdowns among team members. Improvements can be made by implementing regular team meetings and fostering an open communication culture."
+        },
+        {
+          "name": "Sub-Group 2",
+          "relationship": 2,
+          "description": "Sub-Group 2 excels in collaborative efforts, contributing to a moderate relationship score. To enhance teamwork, encouraging cross-functional projects and team-building activities would be beneficial."
+        },
+        {
+          "name": "Sub-Group 3",
+          "relationship": 1,
+          "description": "Sub-Group 3 faces challenges due to unclear roles and responsibilities, leading to a low relationship score. Defining clear objectives and establishing accountability frameworks can help improve team dynamics."
+        },
+        {
+          "name": "Sub-Group 4",
+          "relationship": 3,
+          "description": "Sub-Group 4 maintains a good relationship score attributed to strong leadership and effective conflict resolution strategies. Sustaining this requires continuous leadership development and periodic team evaluations."
         }
-      }
-
-      function createProgressBar(percentage, height = 30) {
-        const color = getProgressBarColor(percentage);
-        return `
-          <div class="progress mb-3 border" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: ${height}px">
-            <div class="progress-bar" style="width: ${percentage}%; background-color: ${color};"></div>
-          </div>
-        `;
-      }
-
-      function createAccordionItem(subteam, teamIndex, subteamIndex) {
-        const percentage = (subteam.relationship / 4) * 100;
-        const collapseId = `collapse${teamIndex}-${subteamIndex}`;
-        return `
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
-                <div class="w-75">
-                  <h5>${subteam.name}</h5>
-                  ${createProgressBar(percentage, 10)}
-                </div>
-              </button>
-            </h2>
-            <div id="${collapseId}" class="accordion-collapse collapse" data-bs-parent="#accordionInner${teamIndex}">
-              <div class="accordion-body">
-                ${subteam.description}
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      function createTeamCard(team, teamIndex) {
-        const totalRelationship = team.subteams.reduce(
-          (sum, subteam) => sum + subteam.relationship,
-          0,
-        );
-        const possibleRelationship = team.subteams.length * 4;
-        const percentage = (totalRelationship / possibleRelationship) * 100;
-
-        const accordionItems = team.subteams
-          .map((subteam, subteamIndex) =>
-            createAccordionItem(subteam, teamIndex, subteamIndex),
-          )
-          .join("");
-
-        return `
-          <div class="col">
-            <div class="card shadow">
-              <div class="card-body">
-                <h2 class="card-title fw-bold"><i class="bi bi-people"></i>&nbsp${team.name}</h2>
-                ${createProgressBar(percentage)}
-                <div class="accordion rounded shadow" id="accordionExample${teamIndex}">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${teamIndex}" aria-expanded="false" aria-controls="collapse${teamIndex}">
-                        <i class="bi bi-people-fill"></i>&nbsp;Sub Groups
-                      </button>
-                    </h2>
-                    <div id="collapse${teamIndex}" class="accordion-collapse collapse" data-bs-parent="#accordionExample${teamIndex}">
-                      <div class="accordion-body">
-                        <div class="accordion rounded shadow" id="accordionInner${teamIndex}">
-                          ${accordionItems}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      async function renderTeams() {
-        const teams = await fetchTeams();
-        const content = document.getElementById("content");
-        content.innerHTML =
-          '<div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 24px;">' +
-          teams.map((team, index) => createTeamCard(team, index)).join("") +
-          "</div>";
-      }
-
-      renderTeams();
-    </script>
-  </body>
-</html>
+      ]
+    },
+    {
+      "name": "Group 2",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 3,
+          "description": "Sub-Group 1 demonstrates high collaboration and commitment to project success, resulting in an excellent relationship score. To sustain this, maintaining clear communication channels and celebrating achievements are crucial."
+        },
+        {
+          "name": "Sub-Group 2",
+          "relationship": 4,
+          "description": "Sub-Group 2 excels in innovation and teamwork, leading to an outstanding relationship score. To sustain this, fostering a culture of creativity and investing in continuous learning opportunities would be beneficial."
+        },
+        {
+          "name": "Sub-Group 3",
+          "relationship": 2,
+          "description": "Sub-Group 3 maintains a moderate relationship score with occasional communication challenges. Enhancing feedback mechanisms and promoting cross-departmental collaborations can improve overall performance."
+        }
+      ]
+    },
+    {
+      "name": "Group 3",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 2,
+          "description": "Sub-Group 1 is focused on improving inter-departmental communication and streamlining workflow processes, contributing to a moderate relationship score. Sustaining this involves regular performance assessments and adapting to industry trends."
+        },
+        {
+          "name": "Sub-Group 2",
+          "relationship": 3,
+          "description": "Sub-Group 2 excels in collaborative problem-solving and teamwork, contributing to a good relationship score. To sustain this, fostering a culture of continuous improvement and investing in employee development is essential."
+        },
+        {
+          "name": "Sub-Group 3",
+          "relationship": 1,
+          "description": "Sub-Group 3 faces challenges due to recent conflicts arising from differing work styles, leading to a low relationship score. To improve, promoting team cohesion through team-building activities and conflict resolution training is necessary."
+        },
+        {
+          "name": "Sub-Group 4",
+          "relationship": 4,
+          "description": "Sub-Group 4 excels in cross-functional synergy and effective communication channels, resulting in an exceptional relationship score. Sustaining this requires fostering a culture of mutual respect and leveraging diversity."
+        }
+      ]
+    },
+    {
+      "name": "Group 4",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 4,
+          "description": "Sub-Group 1 demonstrates strong team cohesion and strategic alignment with organizational goals, contributing to a high relationship score. To sustain this, fostering innovation and providing professional development opportunities are crucial."
+        },
+        {
+          "name": "Sub-Group 2",
+          "relationship": 2,
+          "description": "Sub-Group 2 maintains a moderate relationship score with solid collaboration efforts but occasional communication gaps. Enhancing project management practices and promoting knowledge sharing can improve team performance."
+        }
+      ]
+    },
+    {
+      "name": "Group 5",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 1,
+          "description": "Sub-Group 1 faces challenges due to recent turnover and team restructuring, leading to a low relationship score. To improve, rebuilding trust and fostering a supportive work environment are essential."
+        },
+        {
+          "name": "Sub-Group 2",
+          "relationship": 3,
+          "description": "Sub-Group 2 maintains a good relationship score attributed to effective collaboration and proactive problem-solving. Sustaining this involves continuous feedback and adapting to changing project demands."
+        },
+        {
+          "name": "Sub-Group 3",
+          "relationship": 2,
+          "description": "Sub-Group 3 faces moderate challenges in team dynamics. Improving trust through transparent communication and promoting shared goals can enhance team cohesion and performance."
+        }
+      ]
+    }
+  ]
+}
