@@ -46,10 +46,23 @@
         return data.teams;
       }
 
+      function getProgressBarColor(percentage) {
+        if (percentage <= 25) {
+          return 'red';
+        } else if (percentage <= 50) {
+          return 'yellow';
+        } else if (percentage <= 75) {
+          return 'lightgreen';
+        } else {
+          return 'green';
+        }
+      }
+
       function createProgressBar(percentage, height = 30) {
+        const color = getProgressBarColor(percentage);
         return `
           <div class="progress mb-3" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: ${height}px">
-            <div class="progress-bar" style="width: ${percentage}%"></div>
+            <div class="progress-bar" style="width: ${percentage}%; background-color: ${color}"></div>
           </div>
         `;
       }
