@@ -65,7 +65,7 @@
       function createProgressBar(percentage, height = 30) {
         const color = getProgressBarColor(percentage);
         return `
-          <div class="progress mb-3" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: ${height}px">
+          <div class="progress mb-3 border" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: ${height}px">
             <div class="progress-bar" style="width: ${percentage}%; background-color: ${color};"></div>
           </div>
         `;
