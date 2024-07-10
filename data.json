@@ -12,6 +12,16 @@
           "name": "Sub-Group 2",
           "relationship": 2,
           "description": "Description for Sub-Group 2."
+        },
+        {
+          "name": "Sub-Group 3",
+          "relationship": 1,
+          "description": "Description for Sub-Group 3."
+        },
+        {
+          "name": "Sub-Group 4",
+          "relationship": 3,
+          "description": "Description for Sub-Group 4."
         }
       ]
     },
@@ -27,6 +37,51 @@
           "name": "Sub-Group 2",
           "relationship": 4,
           "description": "Description for Sub-Group 2."
+        },
+        {
+          "name": "Sub-Group 3",
+          "relationship": 2,
+          "description": "Description for Sub-Group 3."
+        },
+        {
+          "name": "Sub-Group 4",
+          "relationship": 1,
+          "description": "Description for Sub-Group 4."
+        },
+        {
+          "name": "Sub-Group 5",
+          "relationship": 4,
+          "description": "Description for Sub-Group 5."
+        }
+      ]
+    },
+    {
+      "name": "Group 3",
+      "subteams": [
+        {
+          "name": "Sub-Group 1",
+          "relationship": 2,
+          "description": "Description for Sub-Group 1 in Group 3."
+        },
+        {
+          "name": "Sub-Group 2",
+          "relationship": 3,
+          "description": "Description for Sub-Group 2 in Group 3."
+        },
+        {
+          "name": "Sub-Group 3",
+          "relationship": 1,
+          "description": "Description for Sub-Group 3 in Group 3."
+        },
+        {
+          "name": "Sub-Group 4",
+          "relationship": 4,
+          "description": "Description for Sub-Group 4 in Group 3."
+        },
+        {
+          "name": "Sub-Group 5",
+          "relationship": 3,
+          "description": "Description for Sub-Group 5 in Group 3."
         }
       ]
     }
