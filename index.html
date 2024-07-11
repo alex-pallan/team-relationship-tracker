@@ -68,39 +68,49 @@
         }
       }
 
-      function createProgressBar(percentage, height = 30) {
+      function getChevronIcon(trend) {
+        switch (trend) {
+          case -2:
+            return `
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-chevron-double-down mx-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+              </svg>`;
+          case -1:
+            return `
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-chevron-down mx-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+              </svg>`;
+          case 0:
+            return `
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="darkgray" class="bi bi-dash-lg mx-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
+              </svg>`;
+          case 1:
+            return `
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-chevron-up mx-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+              </svg>`;
+          case 2:
+            return `
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-chevron-double-up mx-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"/>
+                <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+              </svg>`;
+          default:
+            return "";
+        }
+      }
+
+      function createProgressBar(percentage, trend, height = 30) {
         const color = getProgressBarColor(percentage);
         return `
-        <div class="d-flex align-items-center justify-content-between">
-  <div
-    class="progress border w-100"
-    role="progressbar"
-    aria-valuenow="${percentage}"
-    aria-valuemin="0"
-    aria-valuemax="100"
-    style="height: ${height}px"
-  >
-    <div
-      class="progress-bar"
-      style="width: ${percentage}%; background-color: ${color};"
-    ></div>
-  </div>
-  <div>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="darkgreen"
-      class="bi bi-chevron-up mx-2"
-      viewBox="0 0 16 16"
-    >
-      <path
-        fill-rule="evenodd"
-        d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"
-      />
-    </svg>
-  </div>
-</div>
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="progress border w-100" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: ${height}px">
+              <div class="progress-bar" style="width: ${percentage}%; background-color: ${color};"></div>
+            </div>
+            <div>${getChevronIcon(trend)}</div>
+          </div>
         `;
       }
 
@@ -113,7 +123,7 @@
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
                 <div class="w-75">
                   <h5>${subteam.name}</h5>
-                  ${createProgressBar(percentage, 10)}
+                  ${createProgressBar(percentage, subteam.trend, 10)}
                 </div>
               </button>
             </h2>
@@ -127,17 +137,15 @@
       }
 
       function createTeamCard(team, teamIndex) {
-        const totalRelationship = team.subteams.reduce(
-          (sum, subteam) => sum + subteam.relationship,
-          0,
-        );
+        const totalRelationship = team.subteams.reduce((sum, subteam) => sum + subteam.relationship, 0);
         const possibleRelationship = team.subteams.length * 4;
         const percentage = (totalRelationship / possibleRelationship) * 100;
 
+        const totalTrend = team.subteams.reduce((sum, subteam) => sum + subteam.trend, 0);
+        const averageTrend = Math.round(totalTrend / team.subteams.length);
+
         const accordionItems = team.subteams
-          .map((subteam, subteamIndex) =>
-            createAccordionItem(subteam, teamIndex, subteamIndex),
-          )
+          .map((subteam, subteamIndex) => createAccordionItem(subteam, teamIndex, subteamIndex))
           .join("");
 
         return `
@@ -145,7 +153,7 @@
             <div class="card shadow">
               <div class="card-body">
                 <h2 class="card-title fw-bold"><i class="bi bi-people"></i>&nbsp${team.name}</h2>
-                ${createProgressBar(percentage)}
+                ${createProgressBar(percentage, averageTrend)}
                 <div class="accordion rounded shadow mt-3" id="accordionExample${teamIndex}">
                   <div class="accordion-item">
                     <h2 class="accordion-header">
