@@ -109,7 +109,7 @@
             <div class="progress border w-100" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: ${height}px">
               <div class="progress-bar" style="width: ${percentage}%; background-color: ${color};"></div>
             </div>
-            <div>${getChevronIcon(trend)}</div>
+            <div style="display: flex;scale: 1.3;justify-content: center;align-items: center;">${getChevronIcon(trend)}</div>
           </div>
         `;
       }
@@ -137,15 +137,23 @@
       }
 
       function createTeamCard(team, teamIndex) {
-        const totalRelationship = team.subteams.reduce((sum, subteam) => sum + subteam.relationship, 0);
+        const totalRelationship = team.subteams.reduce(
+          (sum, subteam) => sum + subteam.relationship,
+          0,
+        );
         const possibleRelationship = team.subteams.length * 4;
         const percentage = (totalRelationship / possibleRelationship) * 100;
 
-        const totalTrend = team.subteams.reduce((sum, subteam) => sum + subteam.trend, 0);
+        const totalTrend = team.subteams.reduce(
+          (sum, subteam) => sum + subteam.trend,
+          0,
+        );
         const averageTrend = Math.round(totalTrend / team.subteams.length);
 
         const accordionItems = team.subteams
-          .map((subteam, subteamIndex) => createAccordionItem(subteam, teamIndex, subteamIndex))
+          .map((subteam, subteamIndex) =>
+            createAccordionItem(subteam, teamIndex, subteamIndex),
+          )
           .join("");
 
         return `
