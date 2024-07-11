@@ -151,32 +151,50 @@
         `;
       }
 
-      function createTeamCard(team, index) {
-  const subteams = team.subteams
-    .map((subteam, subteamIndex) =>
-      createAccordionItem(subteam, index, subteamIndex),
-    )
-    .join("");
-
-  const subteamCountBadge =
-    team.subteams.length > 0
-      ? `<span class="badge rounded-pill text-bg-primary position-absolute top-0 start-100 translate-middle">${team.subteams.length}</span>`
-      : "";
-
-  return `
-    <div class="col">
-      <div class="card shadow-sm position-relative">
-        ${subteamCountBadge}
-        <div class="card-body">
-          <h5 class="card-title">${team.name}</h5>
-          <div class="accordion accordion-flush" id="accordion-${index}">
-            ${subteams}
+      function createTeamCard(team, teamIndex) {
+        const totalRelationship = team.subteams.reduce(
+          (sum, subteam) => sum + subteam.relationship,
+          0,
+        );
+        const possibleRelationship = team.subteams.length * 4;
+        const percentage = (totalRelationship / possibleRelationship) * 100;
+        const totalTrend = team.subteams.reduce(
+          (sum, subteam) => sum + subteam.trend,
+          0,
+        );
+        const averageTrend = Math.round(totalTrend / team.subteams.length);
+        const accordionItems = team.subteams
+          .map((subteam, subteamIndex) =>
+            createAccordionItem(subteam, teamIndex, subteamIndex),
+          )
+          .join("");
+        return `
+          <div class="col">
+            <div class="card shadow">
+              <div class="card-body">
+                <h2 class="card-title fw-bold"><i class="bi bi-people"></i>&nbsp${team.name}</h2>
+                ${createProgressBar(percentage, averageTrend)}
+                <div class="accordion rounded shadow mt-3" id="accordionExample${teamIndex}">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${teamIndex}" aria-expanded="false" aria-controls="collapse${teamIndex}">
+                        <i class="bi bi-people-fill"></i>&nbsp;Sub Teams
+                      </button>
+                    </h2>
+                    <div id="collapse${teamIndex}" class="accordion-collapse collapse" data-bs-parent="#accordionExample${teamIndex}">
+                      <div class="accordion-body">
+                        <div class="accordion rounded shadow" id="accordionInner${teamIndex}">
+                          ${accordionItems}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
+        `;
+      }
 
 
 
