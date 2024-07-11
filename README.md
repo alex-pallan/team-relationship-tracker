@@ -3,6 +3,12 @@ This project aims to provide a visual dashboard for relationships with other tea
 ## Usage
 ### How to use
 The data in `data.json` is sample data to demonstrate the functionality of this dashboard. In order to change it to fit your own needs, you will need to alter `data.json` using the same structure currently in use.
+#### Fields in `data.json`
+- `subteams`: Where you enter the sub-team objects under a team.
+- `name`: The name of the team or sub-team.
+- `relationship`: How the relationship with that team is. Entered on a 0-4 scale, with 0 being the worst and 4 being the best.
+- `trend`: How the relationship is changing/trending. Entered on a -2-2 scale, with -2 being the worst, 0 being neutral, and 2 being the best.
+- `description`: More information about that team, potentially including details about why the relationship is the way it is, as well as what can be done to improve it.
 ### Files
 There are various files that are part of this project. Here is an overview of what each one does:
 - `README.md`: The file you're looking at!
