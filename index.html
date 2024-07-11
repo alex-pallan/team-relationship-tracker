@@ -131,20 +131,21 @@
       }
 
       function createAccordionItem(subteam, teamIndex, subteamIndex) {
-        const progressBar = createProgressBar(
-          subteam.percentages[0],
-          subteam.trend,
-        );
+        const percentage = (subteam.relationship / 4) * 100;
+        const collapseId = `collapse${teamIndex}-${subteamIndex}`;
         return `
           <div class="accordion-item">
-            <h2 class="accordion-header" id="subteam-heading-${teamIndex}-${subteamIndex}">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#subteam-collapse-${teamIndex}-${subteamIndex}" aria-expanded="false" aria-controls="subteam-collapse-${teamIndex}-${subteamIndex}">
-                ${subteam.name}
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
+                <div class="w-75">
+                  <h5>${subteam.name}</h5>
+                  ${createProgressBar(percentage, subteam.trend, 10)}
+                </div>
               </button>
             </h2>
-            <div id="subteam-collapse-${teamIndex}-${subteamIndex}" class="accordion-collapse collapse" aria-labelledby="subteam-heading-${teamIndex}-${subteamIndex}" data-bs-parent="#accordion-${teamIndex}">
+            <div id="${collapseId}" class="accordion-collapse collapse" data-bs-parent="#accordionInner${teamIndex}">
               <div class="accordion-body">
-                ${progressBar}
+                ${subteam.description}
               </div>
             </div>
           </div>
@@ -158,16 +159,19 @@
         );
         const possibleRelationship = team.subteams.length * 4;
         const percentage = (totalRelationship / possibleRelationship) * 100;
+
         const totalTrend = team.subteams.reduce(
           (sum, subteam) => sum + subteam.trend,
           0,
         );
         const averageTrend = Math.round(totalTrend / team.subteams.length);
+
         const accordionItems = team.subteams
           .map((subteam, subteamIndex) =>
             createAccordionItem(subteam, teamIndex, subteamIndex),
           )
           .join("");
+
         return `
           <div class="col">
             <div class="card shadow">
@@ -178,7 +182,7 @@
                   <div class="accordion-item">
                     <h2 class="accordion-header">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${teamIndex}" aria-expanded="false" aria-controls="collapse${teamIndex}">
-                        <i class="bi bi-people-fill"></i>&nbsp;Sub Teams
+                        <i class="bi bi-people-fill"></i>&nbsp;Sub Teams <span class="badge rounded-pill text-bg-secondary">1</span>
                       </button>
                     </h2>
                     <div id="collapse${teamIndex}" class="accordion-collapse collapse" data-bs-parent="#accordionExample${teamIndex}">
@@ -196,18 +200,13 @@
         `;
       }
 
-
-
       async function renderTeams() {
         const teams = await fetchTeams();
-        const teamCards = teams
-          .map((team, index) => createTeamCard(team, index))
-          .join("");
-        document.getElementById("content").innerHTML = `
-          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            ${teamCards}
-          </div>
-        `;
+        const content = document.getElementById("content");
+        content.innerHTML =
+          '<div class="row row-cols-1 row-cols-md-2 g-4" style="margin-bottom: 48px;">' +
+          teams.map((team, index) => createTeamCard(team, index)).join("") +
+          "</div>";
       }
 
       renderTeams();
