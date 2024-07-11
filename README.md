@@ -1,4 +1,3 @@
-# README
 ## Purpose of this "Web Application"
 This project aims to provide a visual dashboard for relationships with other teams within an organization. It can show how you feel your relationship with their team is as a combination of your relationship with each respective sub-team. You can also enter a trend indicator to show how your relationship is changing at the moment, and a description for further explanation for each sub-team.
 ## Usage
